@@ -1,9 +1,11 @@
 import { defineComponent, ref, type PropType } from "vue";
+import { RichTextEditor } from "./rich-text-editor";
+import { OutputData } from "@editorjs/editorjs";
 
 export const Demo = defineComponent(
   (props: {
     type: {
-      setting: { url: string };
+      setting: { url: string; };
     };
   }) => {
     const url = props.type.setting.url;
@@ -23,13 +25,13 @@ export const Demo = defineComponent(
   {
     props: {
       type: Object as PropType<{
-        setting: { url: string };
+        setting: { url: string; };
       }>,
     },
   }
 );
 const MyComponent = defineComponent(
-  (props: { title: string; likes?: number }) => {
+  (props: { title: string; likes?: number; }) => {
     return () => (
       <div>
         <h1>{props.title}</h1>
@@ -41,10 +43,12 @@ const MyComponent = defineComponent(
 export const App = defineComponent(() => {
   const url = ref(1);
 
+  const state = ref<OutputData>();
+
   return () => (
     <>
       <Demo type={{ setting: { url: url.value + "" } }}></Demo>
-      <MyComponent title="xxxxxxxxx" likes={123} />
+      <RichTextEditor v-model={state.value} />
       <button
         onClick={() => {
           url.value += 1;
