@@ -1,14 +1,14 @@
 import { type OutputData } from '@editorjs/editorjs';
-import { defineComponent, onMounted, onUnmounted, PropType, ref, watch } from 'vue';
-import { REditor } from './createEditor';
+import { defineComponent, nextTick, onMounted, onUnmounted, PropType, ref, watch } from 'vue';
+import { REditor } from './editor';
 import { isEqual } from 'lodash';
-
+import './editor.css';
 
 export const RichTextEditor = defineComponent({
     props: {
         modelValue: {
             type: [String, Object] as PropType<OutputData>,
-            required: true
+
         },
         placeholder: {
             type: String,
@@ -54,14 +54,17 @@ export const RichTextEditor = defineComponent({
             editor.destroy();
         });
 
-        watch(() => props.modelValue, (v, oldV) => {
-            if (!updatingModel && !isEqual(v, oldV)) {
+        watch(() => props.modelValue, async (v, oldV) => {
+            console.log('modelValue changed:', JSON.stringify(v), JSON.stringify(oldV));
+            if (!updatingModel && !isEqual(v?.blocks, oldV?.blocks)) {
+                await nextTick();
                 modelToView();
+
             }
         });
 
         return () => {
-            return <div ref={nodeRef} style="border: 1px solid #ccc; padding: 10px;"></div>;
+            return <div ref={nodeRef} class={'editorjs-wrapper'}></div>;
         };
     },
 });
