@@ -4,6 +4,7 @@ import EditorJS, { type EditorConfig, type OutputData } from '@editorjs/editorjs
 import Header from '@editorjs/header'
 import ListTool from '@editorjs/list'
 import TextVariantTune from '@editorjs/text-variant-tune'
+import Undo from 'editorjs-undo'
 import { debounce, isEqual } from 'lodash'
 import configsMap from './i18n'
 
@@ -57,6 +58,8 @@ export class REditor {
       onChange: config.onChange ? debounce(config.onChange, 1000) : undefined,
       onReady: () => {
         this.handleReady()
+        // eslint-disable-next-line no-new
+        new Undo({ editor: this.editor })
       },
       i18n: configsMap['zh-CN'],
       data: config.data,

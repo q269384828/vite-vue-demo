@@ -41,6 +41,9 @@ dependencies:
   '@vueuse/core':
     specifier: ^12.0.0
     version: 12.0.0(typescript@5.7.2)
+  editorjs-undo:
+    specifier: ^2.0.28
+    version: 2.0.28
   isEqual:
     specifier: ^1.0.3
     version: 1.0.3
@@ -1739,6 +1742,12 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /editorjs-undo@2.0.28:
+    resolution: {integrity: sha512-7MiLdjIsPOXn8+cHDeAt2HapVklg4vcLWWkd2eMMlGI6UVtwYSjdQquDSv9752B/fOEP1C3NMF2sdiCoZV3tTA==}
+    dependencies:
+      vanilla-caret-js: 1.1.0
+    dev: false
 
   /electron-to-chromium@1.5.67:
     resolution: {integrity: sha512-nz88NNBsD7kQSAGGJyp8hS6xSPtWwqNogA0mjtc2nUYeEf3nURK9qpV18TuBdDmEDgVWotS8Wkzf+V52dSQ/LQ==}
@@ -3612,6 +3621,10 @@ packages:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
     dev: true
+
+  /vanilla-caret-js@1.1.0:
+    resolution: {integrity: sha512-vl3R4Xjqb+xnM0gYyg+wcqWGYwKKnkz58Yj29/FQB+w+yP7R8IR1DGoJnDIs05moEZiGlQUTabPMoEtnQNcrpQ==}
+    dev: false
 
   /vite@5.4.11:
     resolution: {integrity: sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==}
