@@ -1,7 +1,6 @@
 import type { OutputData } from '@editorjs/editorjs'
-import type { PropType, Ref } from 'vue'
-import { isEqual } from 'lodash'
-import { defineComponent, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 import { REditor } from './editor'
 import './editor.css'
 
@@ -41,31 +40,29 @@ export const RichTextEditor = defineComponent({
       }
       updatingModel = false
     }
-    useClickOutside(nodeRef, () => {
-      viewToModel()
-    })
+    // useFocusout(nodeRef, () => {
+    //   viewToModel()
+    // })
+
     onMounted(() => {
       if (nodeRef.value) {
         editor = new REditor(nodeRef.value, {
           data: props.modelValue,
-          //   onChange: viewToModel,
           placeholder: props.placeholder,
           readOnly: props.readOnly,
-          onBlur: viewToModel,
+          onChange: () => {
+            viewToModel()
+          },
         })
       }
-      editor.onReady(() => {
-        modelToView()
-      })
     })
 
     onUnmounted(() => {
       editor.destroy()
     })
 
-    watch(() => props.modelValue, async (v, oldV) => {
-      if (!updatingModel && !isEqual(v?.blocks, oldV?.blocks)) {
-        await nextTick()
+    watch(() => props.modelValue, async () => {
+      if (!updatingModel) {
         modelToView()
       }
     })
@@ -75,20 +72,32 @@ export const RichTextEditor = defineComponent({
     })
 
     return () => {
-      return <div ref={nodeRef} class="editorjs-wrapper" onBlur={viewToModel}></div>
+      return (
+        <div
+          ref={nodeRef}
+          class="editorjs-wrapper"
+
+        >
+        </div>
+      )
     }
   },
 })
-function useClickOutside(nodeRef: Ref<HTMLElement | undefined, HTMLElement | undefined>, cb: () => void | Promise<void>) {
-  const handler = (e: MouseEvent) => {
-    if (nodeRef.value && !nodeRef.value.contains(e.target as Node)) {
-      cb()
-    }
-  }
-  onMounted(() => {
-    document.addEventListener('click', handler)
-  })
-  onUnmounted(() => {
-    document.removeEventListener('click', handler)
-  })
-}
+
+// function useFocusout(nodeRef: Ref<HTMLElement | undefined, HTMLElement | undefined>, cb: () => void | Promise<void>) {
+//   function on(ele: HTMLElement) {
+//     ele.addEventListener('focusout', cb)
+//     return () => {
+//       ele.removeEventListener('focusout', cb)
+//     }
+//   }
+//   watchEffect((onCleanup) => {
+//     if (!nodeRef.value) {
+//       return
+//     }
+//     const off = on(nodeRef.value)
+//     onCleanup(() => {
+//       off()
+//     })
+//   })
+// }

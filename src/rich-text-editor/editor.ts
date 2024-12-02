@@ -4,16 +4,14 @@ import EditorJS, { type EditorConfig, type OutputData } from '@editorjs/editorjs
 import Header from '@editorjs/header'
 import ListTool from '@editorjs/list'
 import TextVariantTune from '@editorjs/text-variant-tune'
-import { debounce } from 'lodash'
+import { debounce, isEqual } from 'lodash'
 import configsMap from './i18n'
 
 export class REditor {
   private editor: EditorJS
 
   private ready = false
-  constructor(holder: HTMLElement, config: Pick<EditorConfig, 'onChange' | 'placeholder' | 'data' | 'readOnly'> & {
-    onBlur?: (data: OutputData) => void
-  }) {
+  constructor(holder: HTMLElement, config: Pick<EditorConfig, 'onChange' | 'placeholder' | 'data' | 'readOnly'>) {
     this.editor = new EditorJS({
       holder,
       placeholder: config.placeholder,
@@ -59,31 +57,15 @@ export class REditor {
       onChange: config.onChange ? debounce(config.onChange, 1000) : undefined,
       onReady: () => {
         this.handleReady()
-        this.onBlur(config.onBlur)
       },
       i18n: configsMap['zh-CN'],
       data: config.data,
       tunes: ['textVariant'],
-
     })
   }
 
   public destroy() {
     this.editor.destroy()
-  }
-
-  onBlur(onBlurCallback?: (data: OutputData) => void) {
-    const handler = async () => {
-      if (!this.ready) {
-        return
-      }
-      const data = await this.editor.save()
-      onBlurCallback?.(data)
-    }
-    this.editor.on('blur', handler)
-    return () => {
-      this.editor.off('blur', handler)
-    }
   }
 
   set readOnly(value: boolean) {
@@ -130,7 +112,11 @@ export class REditor {
       this.editor.focus()
       return
     }
-    await this.editor.render(data)
-    this.editor.focus()
+    const currData = await this.editor.save()
+    // 和当前值不一样时才更新, 否则会导致光标位置丢失, 无法输入, 无法撤销等问题
+    if (!isEqual(currData.blocks, data.blocks)) {
+      await this.editor.render(data)
+      this.editor.focus()
+    }
   }
 }
