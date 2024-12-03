@@ -44,6 +44,9 @@ importers:
       '@vueuse/core':
         specifier: ^12.0.0
         version: 12.0.0(typescript@5.7.2)
+      editorjs-color-picker:
+        specifier: ^1.0.4
+        version: 1.0.4
       editorjs-undo:
         specifier: ^2.0.28
         version: 2.0.28
@@ -274,6 +277,9 @@ packages:
   '@codexteam/icons@0.0.5':
     resolution: {integrity: sha512-s6H2KXhLz2rgbMZSkRm8dsMJvyUNZsEjxobBEg9ztdrb1B2H3pEzY6iTwI4XUPJWJ3c3qRKwV4TrO3J5jUdoQA==}
 
+  '@codexteam/icons@0.3.2':
+    resolution: {integrity: sha512-P1ep2fHoy0tv4wx85eic+uee5plDnZQ1Qa6gDfv7eHPkCXorMtVqJhzMb75o1izogh6G7380PqmFDXV3bW3Pig==}
+
   '@codexteam/icons@0.3.3':
     resolution: {integrity: sha512-cp7mkZPgmBuSxigTm3Vb+DtVHYeX7qXfQd7o05vcLD8Ag5WvRlol2QSn5P10k0CDAJwmkH9nQGQLBycErS9lsQ==}
 
@@ -282,6 +288,9 @@ packages:
 
   '@editorjs/delimiter@1.4.2':
     resolution: {integrity: sha512-S8q2LpeYdYkVShLp7K8c4HLthDHBevLw+sT+iO0+SH0oMvFmld9SUon3DFzMQ2gG07EOdZGRZ958+sVxyvFjZw==}
+
+  '@editorjs/editorjs@2.30.6':
+    resolution: {integrity: sha512-6eQMc4Di3Hz9p4o+NGRgKaCeAF7eAk106m+bsDLc4eo94VGYO1M163OiGFdmanE+w503qTmXOzycWff5blEOAQ==}
 
   '@editorjs/editorjs@2.30.7':
     resolution: {integrity: sha512-FfdeUqrgcKWC+Cy2GW6Dxup6s2TaRKokR4FL+HKXshu6h9Y//rrx4SQkURgkZOCSbV77t9btbmAXdFXWGB+diw==}
@@ -1017,6 +1026,9 @@ packages:
   doctrine@3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
+
+  editorjs-color-picker@1.0.4:
+    resolution: {integrity: sha512-T3d2WPm4kYdbl1GoZHhRYcLsW+KYOkI4kPMsCjq2F6DOR7yUhmp43tRq2EpfYhOAugR+9+Yrehc3dJMfM0laHQ==}
 
   editorjs-undo@2.0.28:
     resolution: {integrity: sha512-7MiLdjIsPOXn8+cHDeAt2HapVklg4vcLWWkd2eMMlGI6UVtwYSjdQquDSv9752B/fOEP1C3NMF2sdiCoZV3tTA==}
@@ -2384,6 +2396,8 @@ snapshots:
 
   '@codexteam/icons@0.0.5': {}
 
+  '@codexteam/icons@0.3.2': {}
+
   '@codexteam/icons@0.3.3': {}
 
   '@editorjs/code@2.9.3':
@@ -2393,6 +2407,8 @@ snapshots:
   '@editorjs/delimiter@1.4.2':
     dependencies:
       '@codexteam/icons': 0.3.3
+
+  '@editorjs/editorjs@2.30.6': {}
 
   '@editorjs/editorjs@2.30.7': {}
 
@@ -3066,6 +3082,11 @@ snapshots:
   doctrine@3.0.0:
     dependencies:
       esutils: 2.0.3
+
+  editorjs-color-picker@1.0.4:
+    dependencies:
+      '@codexteam/icons': 0.3.2
+      '@editorjs/editorjs': 2.30.6
 
   editorjs-undo@2.0.28:
     dependencies:

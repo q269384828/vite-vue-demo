@@ -4,6 +4,7 @@ import EditorJS, { type EditorConfig, type OutputData } from '@editorjs/editorjs
 import Header from '@editorjs/header'
 import ListTool from '@editorjs/list'
 import TextVariantTune from '@editorjs/text-variant-tune'
+import ColorPicker from 'editorjs-color-picker'
 import Undo from 'editorjs-undo'
 import { debounce, isEqual } from 'lodash'
 import configsMap from './i18n'
@@ -35,6 +36,9 @@ export class REditor {
             defaultLevel: 3,
           },
         },
+        colorPicker: {
+          class: ColorPicker,
+        },
         columns: {
           class: editorjsColumns,
           config: {
@@ -50,6 +54,9 @@ export class REditor {
               textVariant: TextVariantTune,
               code: CodeTool,
               header: Header,
+              colorPicker: {
+                class: ColorPicker,
+              },
             },
           },
         },
