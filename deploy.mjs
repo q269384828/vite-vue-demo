@@ -3,7 +3,7 @@ import ghpages from 'gh-pages'
 
 ghpages.publish('dist', {
   branch: 'main',
-  repo: 'git@github.com:q269384828/vite-vue-demo.git',
-}, () => {
-  console.log('success')
+  repo: 'https://github.com/q269384828/vite-vue-demo.git',
+}, (e) => {
+  console.log('success', e)
 })
